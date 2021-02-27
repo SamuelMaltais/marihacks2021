@@ -6,6 +6,6 @@ app.run(environ.get('PORT'))
 
 @app.route("/")
 def home():
-    return ren
+    return render_template(index.html)
 @app.route("/getfoodbanks")
 def 
