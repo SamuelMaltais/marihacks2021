@@ -2,49 +2,81 @@ from os import environ
 from flask import Flask, render_template
 import pickle
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import json
+import requests
+import googlemaps
+from apscheduler.schedulers.blocking import BlockingScheduler
 
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SPREADSHEET_ID = '1to8XkoienC-2ITXDZUMfnC3p_mLUwUAU-_d3CKSk-00'
-RANGE_NAME = 'Tabellenblatt1'
-
-
+#authentication with google API
+scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
+#authentication for maps
+client = gspread.authorize(creds)
+gmaps_key = googlemaps.Client(key = "AIzaSyA_ojPMG7H6WxeUH_nwv6xLrTF_QVVQNN0")
+#Flask app
 app = Flask(__name__)
 
+#Response will be changed every 30sec so save needless spam
+response = []
+
+#base route
 @app.route("/")
 def home():
-    print("something went right")
-    return "lmao !"
-
+    return render_template("index.html")
+#Will return the current Json response
 @app.route("/getfoodbanks")
 def getfoodbanks():
     return response
-@app.route("/oath2callback")
+
+@app.route("/random")
 def callback():
-    return "200"
+    return json.dumps(response)
 
+#will change response every 30sec
+sched = BlockingScheduler()
+@sched.scheduled_job('interval', minutes=3)
+def timed_job():
+    try:
+        
+    except Exception as e:
+        print >>sys.stderr, 'scheduler request failed'
+
+sched.start()
 def getspreadsheetinfo():
-    creds = None
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+    #load sheet
+    sheet = client.open("Marihacks2021").sheet1
+    data = sheet.get_all_records()
+    response = []
+    #create new response body with lat, long and uuid
+    for obj in data:
+        food_bank_name = obj["Name"]
+        adress = obj["Address"]
+        #Check if we already fetched long amd lat from a certain adress, saves nedless requests
+        #if adress is in adress_list: pass
+        phone_number = obj["Phone"]
+        lattitude, longitude = get_lat_long(adress)
+        #uuid = get_hashed(food_bank_name)
+        #Check if within a certain range from Montreal, about 56km
+        if(lattitude <= 45 or lattitude >= 46 or longitude <= -74 or longitude >= -73):
+            pass
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('sheets', 'v4', credentials=creds)
-
-    sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
-    values = result.get('values', [])
-    return values
+            object1 = {
+            #    "id": uuid,
+                "name": food_bank_name,
+                "full_adress": adress,
+                "lat": lattitude,
+                "long": longitude,
+                "phoneNumber": phone_number
+            }
+            response.append(object1)
+    return response        
+def get_lat_long(adress):
+    #make basic query to google maps
+    data = gmaps_key.geocode(adress)
+    latitude = data[0]['geometry']['location']['lat'] 
+    longitude = data[0]['geometry']['location']['lng'] 
+    return latitude, longitude
 
 app.run(environ.get('PORT'))

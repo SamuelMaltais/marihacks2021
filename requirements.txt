@@ -1,4 +1,7 @@
 Flask
-google-api-python-client
-google_auth_oauthlib
-
+gspread
+oauth2client
+requests
+googlemaps
+apscheduler
+gunicorn

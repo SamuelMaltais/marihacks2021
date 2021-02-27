@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "marihacks2021",
+  "private_key_id": "6b90913cfc0c98a53f9a69c488cea8b6dd98ac9c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDoPE2cboql2I4q\nO5gS/4A287Hh5WFb1kxfIZ2s01mQ6NphkxBmcoNiKduLbMlit+DcBNEWwHQS12Kz\nGKs3ieLfy4erhFupbk4hiNoteBvk4OihXoxkNhdpkv6KAnuieBNJepV4kvj1r1+A\nRyuwiytY8kPJ0sg5EltzfBl6N8SFY0Rs31KmFsMT8D2PngeNI5zJZHX7+5H6reQC\nNLclvBr0ySEnqJHydJpiqN44rjqRM6ZGDiJAKMKNQJ8HZ/NiEQi4RKt/O+2ThXoF\nXX4ROBkvIuvPW6s83onPN5a0aDsg9S/9EN6HXBQBhQtW4RUm6XZ1T1CbPWZ0Zvs3\nOWFPh5DNAgMBAAECggEAHcp2jkWj5Yh1HDfO10kNUn9KZ1b8eUJxQ5bVWjE2gR9N\nvEyYQvwXnIUQE7+dydsarj6z7746ZZxZne3hMNuwTdMXEUqGU6LBxQ2AJ2sL8P1k\n+iZdzhEeSb3Ah0WwRHQwzTE7cV8xLpsTnioDEb+YjO1vArnWU3PmZVcbEZGL1Sxb\nJwyNJaYsNw6uzaO1NO4Jzq+hVr2s/AGqi4iX1bezAFXK20ugAiXbzl5oHwrMqybY\ndO+g1zjZg2jbcBLHCWhKL/IntRppraviNw5RWwQwF0jZI3U+56EzGIwNikF9AWIn\na4HhZgLZb0Y7Lbd8cS0Lgg83LAa5BBVcPxi8nnz5IQKBgQD8pCeZHxbMAmmmDwYm\n/YHO67717cA/faWtQ+C8pEeA8319T2MLjnnXJx8MbayxQE81Q+75U21mvc3A7xxy\nzb1p1GnsG9ny0kZn2+udfMJyJzdh0HClJ/Xxypkq23bzPsTRt7ZIbZ9dD81zQ7tP\nOH7ctqxXIg6QbxgvDU89X5L6GQKBgQDrUrMHgXqA2fTEYINT29+YzGXjQMeWSBa4\n2o0+zCKTXaDtShzNj56er0aCHre7gBsc0YUGToTUS9wE1JihfbjhyIeY1GHNr2KU\nfkO7VBHsOzN7P42uU4Mj2xwenWE9kIuipK+rNMzmoFzeBZtuJuNJaYj2Y/ZB0pC2\npss90EyK1QKBgG2Qq3OmnfZf3X2c6mgibRdV+f0h3MwsK5vW4jItdK0h6/xaX3P1\nmDWMy9RSBCDi6PcKvSr32WxDSGYxzL6lJ04sRruU4JKESvBj2ez03EcxZr1O7mtR\nx0HTQVXq081uHWFuMOl8US7E2a7xYtxaffouZtNq+7H73BsbxI+zUUSRAoGBAOBJ\nBwdtWdP7aHXOwvynQJqCnc2WDWRnuvhenWav63hnMZ1YGNG3Q+hciCg2nMlhlPXH\noDDdn240CzSzZ/HrQM45cTuxmLIQqjV7jpS50QdFeZDLhv8S65e+GzP2rhqebOgM\nbL4R6gUZ7MlTsMuw1so+guLLbYdY6MKdgHKe2IUtAoGBAIwam83Qenyje7tLdd9t\neQVZ3RjcYntpeyGH3EiHDyUnL3vZ718cGtJdAcWtYrpI3npij36I5aB172iQGg8o\nYiplh+4h9b+xsd1edovObW0LLcXyubM8ha161iymk2uEHx83sQZ+ucsUwMZNbSqP\nrlyDrsD4BWyEB8bTlTk4JvuH\n-----END PRIVATE KEY-----\n",
+  "client_email": "maltais@marihacks2021.iam.gserviceaccount.com",
+  "client_id": "111798830227021907296",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/maltais%40marihacks2021.iam.gserviceaccount.com"
+}
