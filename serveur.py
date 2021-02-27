@@ -12,6 +12,7 @@ RANGE_NAME = 'Tabellenblatt1'
 
 
 app = Flask(__name__)
+
 @app.route("/")
 def home():
     print("something went right")
@@ -44,13 +45,6 @@ def getspreadsheetinfo():
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
     values = result.get('values', [])
+    return values
 
-    if not values:
-        print('No data found.')
-    else:
-        print('Name, Major:')
-        for row in values:
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s' % (row[0], row[4]))
-
-app.run(environ.get('PORT'))
+app.run(environ.get('PORT'), host='0.0.0.0')
