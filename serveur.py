@@ -32,18 +32,11 @@ def getfoodbanks():
 
 @app.route("/random")
 def callback():
-    return json.dumps(response)
+    return json.dumps(getspreadsheetinfo())
 
 #will change response every 30sec
-sched = BlockingScheduler()
-@sched.scheduled_job('interval', minutes=3)
-def timed_job():
-    try:
-        
-    except Exception as e:
-        print >>sys.stderr, 'scheduler request failed'
 
-sched.start()
+
 def getspreadsheetinfo():
     #load sheet
     sheet = client.open("Marihacks2021").sheet1
