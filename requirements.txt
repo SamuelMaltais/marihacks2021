@@ -1,1 +1,4 @@
 Flask
+google-api-python-client
+google_auth_oauthlib
+
