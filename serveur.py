@@ -23,7 +23,7 @@ def getfoodbanks():
 @app.route("/oath2callback")
 def callback():
     return "200"
-    
+
 def getspreadsheetinfo():
     creds = None
     if os.path.exists('token.pickle'):
@@ -36,7 +36,6 @@ def getspreadsheetinfo():
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
