@@ -47,4 +47,4 @@ def getspreadsheetinfo():
     values = result.get('values', [])
     return values
 
-app.run(environ.get('PORT'), host='0.0.0.0')
+app.run(environ.get('PORT'))
