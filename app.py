@@ -72,4 +72,5 @@ def get_lat_long(adress):
     longitude = data[0]['geometry']['location']['lng'] 
     return latitude, longitude
 
-app.run(environ.get('PORT'))
+if __name__ == '__main__':
+    app.run(threaded=True, port=5000)
