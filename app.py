@@ -19,16 +19,16 @@ gmaps_key = googlemaps.Client(key = "AIzaSyA_ojPMG7H6WxeUH_nwv6xLrTF_QVVQNN0")
 app = Flask(__name__)
 
 #SQL database
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///foodbanks.db'
-#db = SQLAlchemy(app)
-#class foodbanks(db.Model):
- #   __tablename__ = 'foodbanks'
- #   id = db.Column(db.Integer, primary_key=True)
- #   name = db.Column(db.String(50), unique=True, nullable="false")
- #   adress = db.Column(db.String(120), unique=True, nullable="false")
- #   lattitude = db.Column(db.Float(50), unique=True, nullable="false")
- #  def __repr__(self):
- #       return '<Name> %r>' % self.id
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///foodbanks.db'
+db = SQLAlchemy(app)
+class foodbanks(db.Model):
+    __tablename__ = 'foodbanks'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable="false")
+    adress = db.Column(db.String(120), unique=True, nullable="false")
+    lattitude = db.Column(db.Float(50), unique=True, nullable="false")
+   def __repr__(self):
+        return '<Name> %r>' % self.id
 
 #Response will be changed every 30sec so save needless spam
 response = []
@@ -59,10 +59,10 @@ def getspreadsheetinfo():
         food_bank_name = obj["Name"]
         adress = obj["Address"]
         #Check if we already fetched long amd lat from a certain foodbank, saves nedless requests
-#        if adress in foodbanks.adress.query.all():
-#            longitude = foodbanks.longitude.filter(foodbanks.name == food_bank_name).first()
-#            lattitude = foodbanks.lattitude.filter(foodbanks.name == food_bank_name).first()
-#        else:    
+        if adress in foodbanks.adress.query.all():
+            longitude = foodbanks.longitude.filter(foodbanks.name == food_bank_name).first()
+            lattitude = foodbanks.lattitude.filter(foodbanks.name == food_bank_name).first()
+        else:    
         longitude, lattitude = get_lat_long(adress)
         phone_number = obj["Phone"]
         #Check if within a certain range from Montreal, about 56km
@@ -88,8 +88,10 @@ def get_lat_long(adress):
 @app.route("/editor")
 def editor():
     render_template("editor.php")
+
 @app.route("/inventory")
-def editor():
+def inventory():
     render_template("inventory.php")
+
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
