@@ -164,18 +164,20 @@ schedule.every(10).seconds.do(background_job)
 stop_run_continuously = run_continuously()      
 if inventory.query.filter_by(item="bananas").count() < 1:
     try:
-        a = str(uuid.uuid4)
-        test_inventory_item = inventory(item="bananas", name="Pink FoodBank", uuid_=a,amount=50)
-        test_inventory_item2 = inventory(item="Cereal boxes", name="Pink FoodBank", uuid_=a,amount=10)
-        test_inventory_item3 = inventory(item="Oasis juice boxes", name="Pink FoodBank", uuid_=a,amount=100)
-        test_inventory_item4 = inventory(item="Oranges", name="Pink FoodBank", uuid_=a,amount=40)
+        test_inventory_item = inventory(item="bananas", name="Pink FoodBank", uuid_=str(uuid.uuid4()),amount=50)
+        test_inventory_item2 = inventory(item="Cereal boxes", name="Yellow FoodBank", uuid_=str(uuid.uuid4()),amount=10)
+        test_inventory_item3 = inventory(item="Oasis juice boxes", name="Blue FoodBank", uuid_=str(uuid.uuid4()),amount=100)
+        test_inventory_item4 = inventory(item="Oranges", name="Purple FoodBank", uuid_=str(uuid.uuid4()),amount=40)
         db.session.add(test_inventory_item)
         db.session.add(test_inventory_item2)
         db.session.add(test_inventory_item3)
         db.session.add(test_inventory_item4)
+        db.session.commit()
     except:
-        db.rollback()
+        db.session.rollback()
         raise
+    finally:
+        db.session.close()
 
 @app.route("/editor", methods=["POST", "GET"])
 def editor():
