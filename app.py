@@ -119,6 +119,7 @@ def run_continuously(interval=1):
     return cease_continuous_run
 
 def background_job():
+    global response
     response = getspreadsheetinfo()
     print("response updated")
 schedule.every(10).seconds.do(background_job)
