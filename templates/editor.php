@@ -129,32 +129,6 @@ footer{
     <script src="index.js"></script>
 </head>
 <body>
-<?php
-// define variables and set to empty values
-$itemErr = $fbErr = "";
-$quantity = $item = $fb = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["fb"])) {
-    $fbErr = "FB is required";
-  } else {
-    $fb = test_input($_POST["fb"]);
-  }
-
-  if (empty($_POST["item"])) {
-    $itemErr = "Item is required";
-  } else {
-    $item = test_input($_POST["item"]);
-  }
-}
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-?>
     <header>
         <nav>
             <ul>

@@ -139,9 +139,18 @@ footer{
         </nav>
     </header>    
     <article id="locations">
+        {% for foodbanks in foodbanks_data%}
         <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam corrupti cum consequatur accusamus numquam iusto recusandae inventore exercitationem dignissimos tempore.</p>
+            <h2 style="text-align=center;">{{foodbanks.name}}</h2>
+            <p>
+              Uuid : {{foodbanks.uuid_}}
+              Adress : {{foodbanks.adress}}
+              Phone number : {{foodbanks.phone_number}}
+              Latitude : {{foodbanks.lattitude}}
+              Longitude : {{foodbanks.longitude}}
+            </p>
         </div>
+        {%endfor%}
     </article>
     <footer>
         <p>Felix, Liam & Samuel</p>

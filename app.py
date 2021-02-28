@@ -20,7 +20,7 @@ scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
 #authentication for maps
 client = gspread.authorize(creds)
-gmaps_key = googlemaps.Client(key = "AIzaSyA_ojPMG7H6WxeUH_nwv6xLrTF_QVVQNN0")
+gmaps_key = googlemaps.Client(key = "AIzaSyCi7jaEl1uUXVt9phxGAOuQkVM7_9uw3HU")
 #Flask app
 app = Flask(__name__)
 #SQL database for all the foodbanks
@@ -33,13 +33,15 @@ class foodbanks(db.Model):
     adress = db.Column(db.String(120), unique=True, nullable="false")
     lattitude = db.Column(db.Float(50), unique=True, nullable="false")
     longitude = db.Column(db.Float(50), unique=True, nullable="false")
+    phone_number = db.Column(db.String(120), unique=True, nullable="false")
     uuid_ = db.Column(db.VARCHAR(36), unique=True, nullable="false")
     def __repr__(self):
         return '<Name> %r>' % self.id
 #default route
 @app.route("/")
 def home():
-    return render_template("index.php", response=response)
+    foodbanks_data = foodbanks.query.all()
+    return render_template("index.php", foodbanks_data=foodbanks_data)
 #Will return the current Json response
 @app.route("/random")
 def callback():
@@ -69,18 +71,18 @@ def getspreadsheetinfo():
             uuid_ = foodbank_data.uuid_
             longitude = foodbank_data.longitude
             latitude = foodbank_data.lattitude
-            print(longitude, latitude, "Entry already present")
+            print("Entry already present in database")
         else:    
             uuid_ = uuid.uuid4()
             latitude, longitude = get_lat_long(adress)
             try:
-                test_foodbank = foodbanks(name=food_bank_name, adress=adress,lattitude=latitude,longitude=longitude, uuid_ = str(uuid_))
+                test_foodbank = foodbanks(name=food_bank_name, adress=adress,lattitude=latitude,longitude=longitude, uuid_ = str(uuid_),phone_number=phone_number)
                 db.session.add(test_foodbank)
                 db.session.commit()
-                print("worked")
+                print("Session commited")
             except:
                 db.session.rollback()
-                print("unlucky")
+                print("Server database error")
                 raise
             finally:
                 db.session.close()
