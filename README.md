@@ -23,12 +23,12 @@ We are a group of first year college students that are beginners at coding. We j
 
 **How to enable the backend:**
 
-The Heroku profile will automatically launch the app.py
-
+The Heroku procfile will automatically launch the app.py
+If you were to use another cloud provider, as long as it lauches app.py, everything should work fine
 command line:  python app.py
 
 
 
 **Problems we encountered**
 
-We could not manage to finish our editor or out inventory display. The only part we have working cleanly is the food bank information page.
+We could not manage to finish our editor or out inventory display. The only part we have working cleanly is the food bank information page. It took us too much time to learn SQL queries, but we're glad all the required functions are present.
