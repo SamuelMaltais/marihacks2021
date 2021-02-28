@@ -132,7 +132,7 @@ footer{
     <header>
         <nav>
             <ul>
-                <li><a href=""><b>Home</b></a></li>
+                <li><a href="/"><b>Home</b></a></li>
                 <li><a href="#"><b>Editor</b></a></li>
                 <li><a href="inventory"><b>Inventory</b></a></li>
             </ul>
@@ -140,24 +140,23 @@ footer{
     </header>
     <section>        
         <div id="item">
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <form method="post" action="">
                 <p>Please Select The Food Bank:</p>
-                    <input type="radio" name="fb" <?php if (isset($fb) && $fb=="FB 1") echo "checked";?> value="FB 1">FB 1<br>
-                    <input type="radio" name="fb" <?php if (isset($fb) && $fb=="FB 2") echo "checked";?> value="FB 2">FB 2<br>
-                    <input type="radio" name="fb" <?php if (isset($fb) && $fb=="FB 3") echo "checked";?> value="FB 3">FB 3<br>
-                    <span class="error">* <?php echo $fbErr;?></span>
                     <!-- add <a> for each different food bank -->
                     <br><br>
                     Please Select The Item:
-                    <input type="radio" name="item" <?php if (isset($item) && $item=="Item 1") echo "checked";?> value="Item 1">Item 1<br>
-                    <input type="radio" name="item" <?php if (isset($item) && $item=="Item 2") echo "checked";?> value="Item 2">Item 2<br>
-                    <input type="radio" name="item" <?php if (isset($item) && $item=="Item 3") echo "checked";?> value="Item 3">Item 3<br>
-                    <span class="error">* <?php echo $itemrErr;?></span>
+                    {%for item in items%}
+                      <input type="radio" name="item"  value={{item}}>Item 1<br>
+                    {%endfor%}
+                    <br>
+                    <input type="text" name="amount"  value="amount">Amount taken or added<br>
+                    <span class="error"></span>
                     <br>
                     <input type="submit" name="submit" value="Submit">  
                   <!-- </form> -->
                     <br>
-                    <input type="text" id="newitemh" name="newitem">
+                    <p>Enter new item name:</p>
+                    <input type="text" id="newitem" name="newitem"><br>
                     <div id="newitems"></div>
                     <button onclick="myFunction(newitem)">Add Item</button>                    
                     <br><br>
@@ -166,6 +165,9 @@ footer{
                 <input type="submit">                    
             </form>
         </div>
+        {%if answer%}
+          <p> The request worked !</p>
+        {%endif%}
     </section>
     <footer>
         <p>Felix, Liam & Samuel</p>

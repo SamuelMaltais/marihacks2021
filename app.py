@@ -1,5 +1,5 @@
 from os import environ
-from flask import Flask, render_template, send_file, send_from_directory
+from flask import Flask, render_template, send_file, send_from_directory, request
 import pickle
 import os.path
 import gspread
@@ -79,10 +79,6 @@ def home():
     foodbanks_data = foodbanks.query.all()
     return render_template("index.php", foodbanks_data=foodbanks_data)
 #Will return the current Json response
-@app.route("/random")
-def callback():
-    return json.dumps(getspreadsheetinfo())
-
 def get_lat_long(adress):
     #make basic query to google maps
     try:
@@ -166,10 +162,30 @@ def background_job():
 schedule.every(10).seconds.do(background_job)
 # Start the background thread
 stop_run_continuously = run_continuously()      
+if inventory.query.filter_by(item="bananas").count() < 1:
+    try:
+        a = str(uuid.uuid4)
+        test_inventory_item = inventory(item="bananas", name="Pink FoodBank", uuid_=a,amount=50)
+        test_inventory_item2 = inventory(item="Cereal boxes", name="Pink FoodBank", uuid_=a,amount=10)
+        test_inventory_item3 = inventory(item="Oasis juice boxes", name="Pink FoodBank", uuid_=a,amount=100)
+        test_inventory_item4 = inventory(item="Oranges", name="Pink FoodBank", uuid_=a,amount=40)
+        db.session.add(test_inventory_item)
+        db.session.add(test_inventory_item2)
+        db.session.add(test_inventory_item3)
+        db.session.add(test_inventory_item4)
+    except:
+        db.rollback()
+        raise
 
-@app.route("/editor")
+@app.route("/editor", methods=["POST", "GET"])
 def editor():
-    return render_template("editor.php", items = return_all_items())
+    answer = False
+    #checking method to retrieve form
+    if request.method == "POST":
+        answer = True
+        return render_template("editor.php", items = return_all_items(),  answer = answer)
+    if request.method == "GET":
+        return render_template("editor.php", items = return_all_items(), answer = answer)
 @app.route("/inventory")
 def inventory_page():
     return render_template("inventory.php", items = return_all_items())

@@ -133,7 +133,7 @@ footer{
     <header>
         <nav>
             <ul>
-                <li><a href=""><b>Home</b></a></li>
+                <li><a href="/"><b>Home</b></a></li>
                 <li><a href="editor"><b>Editor</b></a></li>
                 <li><a href="#"><b>Inventory</b></a></li>
             </ul>
