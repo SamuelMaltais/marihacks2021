@@ -37,6 +37,42 @@ class foodbanks(db.Model):
     uuid_ = db.Column(db.VARCHAR(36), unique=True, nullable="false")
     def __repr__(self):
         return '<Name> %r>' % self.id
+#Inventory manager
+class inventory(db.Model):
+    __tablename__ = 'inventory'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable="false")
+    uuid_ = db.Column(db.String(50), unique=True, nullable="false")
+    item = db.Column(db.String(100), unique=True, nullable="false")
+    amount = db.Column(db.Integer, unique=False, nullable="True")
+    def __repr__(self):
+        return '<Name> %r>' % self.id
+def query_inventory(item, amount, name, uuid_):
+    try:
+        inventory_item = inventory(name=name, item=item, uuid_=uuid_)
+        db.session.add(test_foodbank)
+        db.session.commit()
+        print("Session commited")
+    except:
+        db.session.rollback()
+        print("Server database error")
+        raise
+    finally:
+        db.session.close()
+def change_inventory_amount(item, amount,name,uuid_):
+    try:    
+        inventory_item = inventory.query.filter_by(uuid_=uuid_).first()
+        inventory_item.amount = inventory_item.amount + amount
+        session.commit()
+    except:
+        db.session.rollback()
+        print("Something went wrong, item inexistent or something")
+        raise
+def return_all_items():
+    inventory_items = inventory.query.all()
+    return inventory_items
+
+
 #default route
 @app.route("/")
 def home():
@@ -47,13 +83,16 @@ def home():
 def callback():
     return json.dumps(getspreadsheetinfo())
 
-#will change response every 30sec
-
 def get_lat_long(adress):
     #make basic query to google maps
-    data = gmaps_key.geocode(adress)
-    latitude = data[0]['geometry']['location']['lat'] 
-    longitude = data[0]['geometry']['location']['lng'] 
+    try:
+        data = gmaps_key.geocode(adress)
+        latitude = data[0]['geometry']['location']['lat'] 
+        longitude = data[0]['geometry']['location']['lng'] 
+    except:
+        #Will make it so that they become rejected
+        latitude = 100
+        longitude = 100
     return latitude, longitude
 def getspreadsheetinfo():
     #load sheet
@@ -130,10 +169,10 @@ stop_run_continuously = run_continuously()
 
 @app.route("/editor")
 def editor():
-    return render_template("editor.php")
+    return render_template("editor.php", items = return_all_items())
 @app.route("/inventory")
-def inventory():
-    return render_template("inventory.php")
+def inventory_page():
+    return render_template("inventory.php", items = return_all_items())
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)

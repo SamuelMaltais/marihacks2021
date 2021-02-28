@@ -133,16 +133,21 @@ footer{
     <header>
         <nav>
             <ul>
-                <li><a href="index.php"><b>Home</b></a></li>
-                <li><a href="editor.php"><b>Editor</b></a></li>
+                <li><a href=""><b>Home</b></a></li>
+                <li><a href="editor"><b>Editor</b></a></li>
                 <li><a href="#"><b>Inventory</b></a></li>
             </ul>
         </nav>
     </header>
     <section>
+        {%for item in items%}
         <div class="container">
-            <P>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, optio voluptatum quas debitis itaque laboriosam quis totam culpa maiores quia a doloremque deleniti nostrum quaerat quibusdam, autem ea sapiente sed dolore similique cum provident porro amet? Error libero neque quos excepturi eos numquam praesentium adipisci! Mollitia maxime saepe enim aliquid?</P>
+            <P>
+            item: {{item.item}}
+            amount: {{item.amount}}
+            </P>
         </div>
+        {%endfor%}
     </section>
     <footer>
         <p>Felix, Liam & Samuel</p>

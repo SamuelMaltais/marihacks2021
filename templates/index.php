@@ -132,9 +132,9 @@ footer{
     <header>
         <nav>
             <ul>
-                <li><a href="http://marihacks2021.herokuapp.com/"><b>Home</b></a></li>
-                <li><a href="http://marihacks2021.herokuapp.com/editor"><b>Editor</b></a></li>
-                <li><a href="http://marihacks2021.herokuapp.com/inventory"><b>Inventory</b></a></li>
+                <li><a href="#"><b>Home</b></a></li>
+                <li><a href="/editor"><b>Editor</b></a></li>
+                <li><a href="/inventory"><b>Inventory</b></a></li>
             </ul>
         </nav>
     </header>    

@@ -132,9 +132,9 @@ footer{
     <header>
         <nav>
             <ul>
-                <li><a href="index.php"><b>Home</b></a></li>
+                <li><a href=""><b>Home</b></a></li>
                 <li><a href="#"><b>Editor</b></a></li>
-                <li><a href="inventory.php"><b>Inventory</b></a></li>
+                <li><a href="inventory"><b>Inventory</b></a></li>
             </ul>
         </nav>
     </header>
@@ -167,10 +167,6 @@ footer{
             </form>
         </div>
     </section>
-      <?php
-      json_encode($item)
-      json_encode($fb)
-      ?>
     <footer>
         <p>Felix, Liam & Samuel</p>
     </footer>
